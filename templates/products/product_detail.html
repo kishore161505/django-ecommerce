@@ -24,21 +24,29 @@
 
         <h2>₹ {{ product.price }}</h2>
 
+        {% if product.stock > 0 %}
+
         <p>
 
-            <strong>Stock:</strong>
+            <strong>Stock :</strong>
 
             {{ product.stock }}
 
         </p>
 
-        {% if product.stock > 0 %}
+        <br>
 
-            <p>In Stock</p>
+        <a href="{% url 'add_to_cart' product.id %}">
+            Add to Cart
+        </a>
 
         {% else %}
 
-            <p>Out of Stock</p>
+        <p>
+
+        Out of Stock
+
+        </p>
 
         {% endif %}
 

@@ -46,6 +46,28 @@ Products
                 View Details
             </a>
 
+            {% if product.stock > 0 %}
+
+            <a href="{% url 'add_to_cart' product.id %}">
+
+                Add to Cart
+
+            </a>
+
+            {% else %}
+
+            <p>
+
+            Out of Stock
+
+            </p>
+
+            {% endif %}
+
+            <br><br>
+
+            
+
         </div>
 
     {% endfor %}

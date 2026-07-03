@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}
+Shopping Cart
+{% endblock %}
+
+{% block content %}
+
+<h1>Shopping Cart</h1>
+
+{% if cart.items.all %}
+
+<table>
+
+    <thead>
+
+        <tr>
+
+            <th>Image</th>
+
+            <th>Product</th>
+
+            <th>Price</th>
+
+            <th>Quantity</th>
+
+            <th>Subtotal</th>
+
+            <th>Action</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for item in items %}
+
+        <tr>
+
+            <td>
+
+                <img src="{{ item.product.image.url }}"
+                     alt="{{ item.product.name }}"
+                     class="cart-image">
+
+            </td>
+
+            <td>
+
+                {{ item.product.name }}
+
+            </td>
+
+            <td>
+
+                ₹ {{ item.price }}
+
+            </td>
+
+            <td>
+
+                <a href="{% url 'decrease_quantity' item.id %}">
+                    -
+                </a>
+
+                {{ item.quantity }}
+
+                <a href="{% url 'increase_quantity' item.id %}">
+                    +
+                </a>
+
+            </td>
+
+            <td>
+
+                ₹ {{ item.subtotal }}
+
+            </td>
+
+            <td>
+
+                <a href="{% url 'remove_item' item.id %}">
+                    Remove
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+<hr>
+
+<h2>
+
+Total Items :
+{{ cart.total_quantity }}
+
+</h2>
+
+<h2>
+
+Grand Total :
+₹ {{ cart.total_price }}
+
+</h2>
+
+<br>
+
+<a href="{% url 'product_list' %}">
+    Continue Shopping
+</a>
+
+&nbsp;&nbsp;
+
+<a href="{% url 'clear_cart' %}">
+    Clear Cart
+</a>
+
+&nbsp;&nbsp;
+
+<a href="#">
+    Proceed to Checkout
+</a>
+
+{% else %}
+
+<h2>Your cart is empty.</h2>
+
+<a href="{% url 'product_list' %}">
+    Start Shopping
+</a>
+
+{% endif %}
+
+{% endblock %}

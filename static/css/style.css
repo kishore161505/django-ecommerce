@@ -299,3 +299,68 @@ form button{
     color:white;
 
 }
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:20px;
+
+}
+
+table,
+th,
+td{
+
+    border:1px solid #ccc;
+
+}
+
+th,
+td{
+
+    padding:12px;
+
+    text-align:center;
+
+}
+
+th{
+
+    background:#222;
+
+    color:white;
+
+}
+
+.cart-image{
+
+    width:100px;
+
+    height:100px;
+
+    object-fit:cover;
+
+}
+
+td a{
+
+    text-decoration:none;
+
+    padding:5px 10px;
+
+}
+
+td a:hover{
+
+    color:red;
+
+}
+
+h2{
+
+    margin-top:20px;
+
+}

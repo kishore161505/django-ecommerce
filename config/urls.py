@@ -31,6 +31,10 @@ urlpatterns = [
         "",
         include("products.urls"),
     ),
+    path(
+        "cart/",
+        include("cart.urls"),
+    ),
 ]
 
 if settings.DEBUG:

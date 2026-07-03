@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}
+Delete Address
+{% endblock %}
+
+{% block content %}
+
+<h1>Delete Address</h1>
+
+<p>
+
+Are you sure?
+
+</p>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<button type="submit">
+
+Delete
+
+</button>
+
+</form>
+
+{% endblock %}

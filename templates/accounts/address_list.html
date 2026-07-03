@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Addresses
+{% endblock %}
+
+{% block content %}
+
+<h1>My Addresses</h1>
+
+<p>
+
+    <a href="{% url 'add_address' %}">
+        Add New Address
+    </a>
+
+</p>
+
+<hr>
+
+{% for address in addresses %}
+
+<p>
+
+<strong>{{ address.full_name }}</strong>
+
+</p>
+
+<p>{{ address.house_number }}</p>
+
+<p>{{ address.street }}</p>
+
+<p>{{ address.city }}</p>
+
+<p>{{ address.state }}</p>
+
+<p>{{ address.country }}</p>
+
+<p>{{ address.postal_code }}</p>
+
+<p>{{ address.phone_number }}</p>
+
+{% if address.is_default %}
+
+<p><strong>Default Address</strong></p>
+
+{% endif %}
+
+<a href="{% url 'edit_address' address.id %}">
+
+Edit
+
+</a>
+
+|
+
+<a href="{% url 'delete_address' address.id %}">
+
+Delete
+
+</a>
+
+<hr>
+
+{% empty %}
+
+<p>No addresses added.</p>
+
+{% endfor %}
+
+{% endblock %}

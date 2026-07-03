@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}
+Profile
+{% endblock %}
+
+{% block content %}
+
+<h1>My Profile</h1>
+
+<hr>
+
+{% if user.profile.profile_image %}
+
+    <img
+        src="{{ user.profile.profile_image.url }}"
+        alt="Profile Image"
+        width="150"
+    >
+
+{% else %}
+
+    <p>No Profile Image</p>
+
+{% endif %}
+
+<p>
+
+    <strong>Username :</strong>
+
+    {{ user.username }}
+
+</p>
+
+<p>
+
+    <strong>First Name :</strong>
+
+    {{ user.first_name }}
+
+</p>
+
+<p>
+
+    <strong>Last Name :</strong>
+
+    {{ user.last_name }}
+
+</p>
+
+<p>
+
+    <strong>Email :</strong>
+
+    {{ user.email }}
+
+</p>
+
+<p>
+
+    <strong>Phone :</strong>
+
+    {{ user.profile.phone_number }}
+
+</p>
+
+<p>
+
+    <strong>Date of Birth :</strong>
+
+    {{ user.profile.date_of_birth }}
+
+</p>
+
+<br>
+
+<a href="{% url 'edit_profile' %}">
+    Edit Profile
+</a>
+
+|
+
+<a href="{% url 'change_password' %}">
+    Change Password
+</a>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ product.name }}
+{% endblock %}
+
+{% block content %}
+
+<div class="product-detail">
+
+    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+
+    <div class="product-info">
+
+        <h1>{{ product.name }}</h1>
+
+        <h3>{{ product.brand }}</h3>
+
+        <p><strong>SKU:</strong> {{ product.sku }}</p>
+
+        <p><strong>Category:</strong> {{ product.category.name }}</p>
+
+        <p>{{ product.description }}</p>
+
+        <h2>₹ {{ product.price }}</h2>
+
+        <p>
+
+            <strong>Stock:</strong>
+
+            {{ product.stock }}
+
+        </p>
+
+        {% if product.stock > 0 %}
+
+            <p>In Stock</p>
+
+        {% else %}
+
+            <p>Out of Stock</p>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

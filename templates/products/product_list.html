@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}
+Products
+{% endblock %}
+
+{% block content %}
+
+
+<h1>All Products</h1>
+    <form method="GET">
+
+        <input
+            type="text"
+            name="q"
+            placeholder="Search products..."
+            value="{{ query }}"
+        >
+
+        <button type="submit">
+
+            Search
+
+        </button>
+
+    </form>
+<div class="product-container">
+
+
+    <br>
+    {% if has_products %}
+
+    {% for product in page_obj %}
+
+        <div class="product-card">
+
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+
+            <h3>{{ product.name }}</h3>
+
+            <p>{{ product.brand }}</p>
+
+            <p>₹ {{ product.price }}</p>
+
+            <a href="{{ product.get_absolute_url }}">
+                View Details
+            </a>
+
+        </div>
+
+    {% endfor %}
+
+    {% else %}
+
+    <p>
+
+    No Products Found.
+
+    </p>
+
+    {% endif %}
+
+</div>
+
+<div class="pagination">
+
+    {% if page_obj.has_previous %}
+
+        <a href="?page=1{% if query %}&q={{ query }}{% endif %}">
+            First
+        </a>
+
+        <a href="?page={{ page_obj.previous_page_number }}{% if query %}&q={{ query }}{% endif %}">
+            Previous
+        </a>
+
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+
+        {% if page_obj.number == num %}
+
+            <strong>{{ num }}</strong>
+
+        {% else %}
+
+            <a href="?page={{ num }}{% if query %}&q={{ query }}{% endif %}">
+                {{ num }}
+            </a>
+
+        {% endif %}
+
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+
+        <a href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query }}{% endif %}">
+            Next
+        </a>
+
+        <a href="?page={{ page_obj.paginator.num_pages }}{% if query %}&q={{ query }}{% endif %}">
+            Last
+        </a>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

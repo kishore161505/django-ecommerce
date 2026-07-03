@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+
+<h1>Welcome to Django E-Commerce</h1>
+
+<h2>Categories</h2>
+
+<div class="category-container">
+
+    {% for category in categories %}
+
+        <div class="category-card">
+
+            {% if category.image %}
+                <img src="{{ category.image.url }}" alt="{{ category.name }}">
+            {% endif %}
+
+            <h3>{{ category.name }}</h3>
+
+            <p>{{ category.description|truncatewords:15 }}</p>
+
+            <a href="{{ category.get_absolute_url }}">
+                View Products
+            </a>
+
+        </div>
+
+    {% empty %}
+
+        <p>No Categories Found.</p>
+
+    {% endfor %}
+
+</div>
+
+<hr>
+
+<h2>Latest Products</h2>
+
+<div class="product-container">
+
+    {% for product in products %}
+
+        <div class="product-card">
+
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+
+            <h3>{{ product.name }}</h3>
+
+            <p>₹ {{ product.price }}</p>
+
+            <a href="{{ product.get_absolute_url }}">
+                View Details
+            </a>
+
+        </div>
+
+    {% empty %}
+
+        <p>No Products Available.</p>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

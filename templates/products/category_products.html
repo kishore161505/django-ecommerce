@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ category.name }}
+{% endblock %}
+
+{% block content %}
+
+<p>
+
+Total Products :
+
+<strong>
+
+{{ product_count }}
+
+</strong>
+
+</p>
+
+<h1>{{ category.name }}</h1>
+
+<p>{{ category.description }}</p>
+
+<hr>
+
+<div class="product-container">
+
+    {% for product in products %}
+
+        <div class="product-card">
+
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+
+            <h3>{{ product.name }}</h3>
+
+            <p>{{ product.brand }}</p>
+
+            <p>₹ {{ product.price }}</p>
+
+            <a href="{{ product.get_absolute_url }}">
+                View Details
+            </a>
+
+        </div>
+
+    {% empty %}
+
+        <p>No Products in this Category.</p>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

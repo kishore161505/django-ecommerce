@@ -124,9 +124,15 @@ Grand Total :
 
 &nbsp;&nbsp;
 
-<a href="#">
+{% if cart.items.all %}
+
+<a href="{% url 'checkout' %}">
+
     Proceed to Checkout
+
 </a>
+
+{% endif %}
 
 {% else %}
 

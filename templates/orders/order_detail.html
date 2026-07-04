@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block title %}
+Order Details
+{% endblock %}
+
+{% block content %}
+
+<h1>Order Details</h1>
+
+<hr>
+
+<p>
+
+<strong>Order Number :</strong>
+
+{{ order.order_number }}
+
+</p>
+
+<p>
+
+<strong>Status :</strong>
+
+{{ order.status }}
+
+</p>
+
+<p>
+
+<strong>Date :</strong>
+
+{{ order.created_at|date:"d M Y H:i" }}
+
+</p>
+
+<hr>
+
+<h2>Shipping Address</h2>
+
+<p>
+
+{{ order.address.full_name }}
+
+</p>
+
+<p>
+
+{{ order.address.address_line }}
+
+</p>
+
+<p>
+
+{{ order.address.city }}
+
+{{ order.address.state }}
+
+</p>
+
+<p>
+
+{{ order.address.postal_code }}
+
+</p>
+
+<p>
+
+{{ order.address.country }}
+
+</p>
+
+<hr>
+
+<h2>Ordered Items</h2>
+
+<table>
+
+    <tr>
+
+        <th>Product</th>
+
+        <th>Price</th>
+
+        <th>Quantity</th>
+
+        <th>Subtotal</th>
+
+    </tr>
+
+    {% for item in order.items.all %}
+
+    <tr>
+
+        <td>
+
+            {{ item.product_name }}
+
+        </td>
+
+        <td>
+
+            ₹ {{ item.product_price|floatformat:2 }}
+
+        </td>
+
+        <td>
+
+            {{ item.quantity }}
+
+        </td>
+
+        <td>
+
+            ₹ {{ item.subtotal|floatformat:2 }}
+
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+<br>
+
+<h2>
+
+Total :
+
+₹ {{ order.total_amount|floatformat:2 }}
+
+</h2>
+
+<br>
+
+<a href="{% url 'order_history' %}">
+
+Back to Orders
+
+</a>
+
+{% endblock %}

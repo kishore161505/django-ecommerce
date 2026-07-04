@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}
+Order Success
+{% endblock %}
+
+{% block content %}
+
+<h1>Order Placed Successfully</h1>
+
+<hr>
+
+<p>
+
+<strong>Order Number :</strong>
+
+{{ order.order_number }}
+
+</p>
+
+<p>
+
+<strong>Status :</strong>
+
+{{ order.status }}
+
+</p>
+
+<p>
+
+<strong>Total :</strong>
+
+₹ {{ order.total_amount }}
+
+<p>
+
+<strong>Shipping To :</strong>
+
+{{ order.address.full_name }}
+
+</p>
+
+<p>
+
+{{ order.address.city }},
+
+{{ order.address.state }}
+
+</p>
+
+</p>
+
+<p>
+
+<strong>Ordered On :</strong>
+
+{{ order.created_at }}
+
+</p>
+
+<br>
+
+<a href="{% url 'order_detail' order.order_number %}">
+
+View Order
+
+</a>
+
+<br><br>
+
+<a href="{% url 'product_list' %}">
+
+Continue Shopping
+
+</a>
+
+{% endblock %}

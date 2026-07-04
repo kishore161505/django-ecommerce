@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}
+Checkout
+{% endblock %}
+
+{% block content %}
+
+<h1>Checkout</h1>
+
+{% if cart.items.all %}
+
+<h2>Select Shipping Address</h2>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    {% for address in addresses %}
+
+        <div>
+
+            <input
+                type="radio"
+                name="address"
+                value="{{ address.id }}"
+                required
+            >
+
+            <strong>{{ address.full_name }}</strong>
+
+            <br>
+
+            {{ address.address_line }}
+
+            <br>
+
+            {{ address.city }}
+
+            {{ address.state }}
+
+            <br>
+
+            {{ address.postal_code }}
+
+            <br>
+
+            {{ address.country }}
+
+            <br><br>
+
+        </div>
+
+    {% empty %}
+
+        <p>No address available.</p>
+
+    {% endfor %}
+
+    <hr>
+
+    <h2>Order Summary</h2>
+
+    <table>
+
+        <tr>
+
+            <th>Product</th>
+
+            <th>Price</th>
+
+            <th>Quantity</th>
+
+            <th>Subtotal</th>
+
+        </tr>
+
+        {% for item in cart.items.all %}
+
+        <tr>
+
+            <td>{{ item.product.name }}</td>
+
+            <td>₹ {{ item.price }}</td>
+
+            <td>{{ item.quantity }}</td>
+
+            <td>₹ {{ item.subtotal }}</td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <br>
+
+    <h2>
+
+        Grand Total :
+
+        ₹ {{ cart.total_price }}
+
+    </h2>
+
+    <br>
+
+    {% if addresses %}
+
+        <button type="submit">
+
+            Place Order
+
+        </button>
+
+    {% endif %}
+
+</form>
+
+{% else %}
+
+<h2>Your cart is empty.</h2>
+
+<a href="{% url 'product_list' %}">
+
+    Continue Shopping
+
+</a>
+
+{% endif %}
+
+{% endblock %}

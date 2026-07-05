@@ -28,6 +28,58 @@ Order Details
 
 <p>
 
+<strong>Payment Method :</strong>
+
+{{ order.payment.payment_method }}
+
+</p>
+
+<p>
+
+<strong>Payment Status :</strong>
+
+{{ order.payment.payment_status }}
+
+</p>
+
+<p>
+
+<strong>Transaction ID :</strong>
+
+{% if order.payment.transaction_id %}
+
+{{ order.payment.transaction_id }}
+
+{% else %}
+
+N/A
+
+{% endif %}
+
+</p>
+
+<br>
+
+{% if order.payment.payment_method == "COD" %}
+
+<p>
+
+Cash will be collected during delivery.
+
+</p>
+
+{% else %}
+
+<p>
+
+Online payment integration is coming soon.
+
+</p>
+
+{% endif %}
+
+<p>
+
 <strong>Date :</strong>
 
 {{ order.created_at|date:"d M Y H:i" }}
@@ -131,6 +183,18 @@ Total :
 ₹ {{ order.total_amount|floatformat:2 }}
 
 </h2>
+
+{% if order.status == "Pending" %}
+
+<br>
+
+<a href="{% url 'cancel_order' order.order_number %}">
+
+    Cancel Order
+
+</a>
+
+{% endif %}
 
 <br>
 

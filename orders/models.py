@@ -108,3 +108,96 @@ class OrderItem(models.Model):
     def __str__(self):
 
         return self.product_name
+    
+
+class Payment(models.Model):
+
+    PAYMENT_METHODS = (
+
+        ("COD", "Cash On Delivery"),
+
+        ("ONLINE", "Online Payment"),
+
+    )
+
+    PAYMENT_STATUS = (
+
+        ("Pending", "Pending"),
+
+        ("Completed", "Completed"),
+
+        ("Failed", "Failed"),
+
+        ("Refunded", "Refunded"),
+
+    )
+
+    order = models.OneToOneField(
+
+        Order,
+
+        on_delete=models.CASCADE,
+
+        related_name="payment",
+
+    )
+
+    payment_method = models.CharField(
+
+        max_length=20,
+
+        choices=PAYMENT_METHODS,
+
+    )
+
+    payment_status = models.CharField(
+
+        max_length=20,
+
+        choices=PAYMENT_STATUS,
+
+        default="Pending",
+
+    )
+
+    transaction_id = models.CharField(
+
+        max_length=100,
+
+        blank=True,
+
+        null=True,
+
+    )
+
+    amount = models.DecimalField(
+
+        max_digits=10,
+
+        decimal_places=2,
+
+    )
+
+    paid_at = models.DateTimeField(
+
+        blank=True,
+
+        null=True,
+
+    )
+
+    created_at = models.DateTimeField(
+
+        auto_now_add=True,
+
+    )
+
+    updated_at = models.DateTimeField(
+
+        auto_now=True,
+
+    )
+
+    def __str__(self):
+
+        return f"{self.order.order_number} - {self.payment_method}"

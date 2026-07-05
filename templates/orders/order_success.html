@@ -28,6 +28,52 @@ Order Success
 
 <p>
 
+<strong>Payment Method :</strong>
+
+{{ order.payment.payment_method }}
+
+</p>
+
+<p>
+
+<strong>Payment Status :</strong>
+
+{{ order.payment.payment_status }}
+
+</p>
+
+<p>
+
+<strong>Amount Paid :</strong>
+
+₹ {{ order.payment.amount|floatformat:2 }}
+
+</p>
+
+<br><br>
+
+{% if order.payment.payment_method == "COD" %}
+
+<p>
+
+Your order has been placed successfully.
+
+Please pay when your order is delivered.
+
+</p>
+
+{% else %}
+
+<p>
+
+Your online payment will be processed in the next phase.
+
+</p>
+
+{% endif %}
+
+<p>
+
 <strong>Total :</strong>
 
 ₹ {{ order.total_amount }}

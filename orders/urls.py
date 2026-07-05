@@ -23,6 +23,12 @@ urlpatterns = [
     ),
 
     path(
+        "cancel/<uuid:order_number>/",
+        views.cancel_order,
+        name="cancel_order",
+    ),
+
+    path(
         "<uuid:order_number>/",
         views.order_detail,
         name="order_detail",

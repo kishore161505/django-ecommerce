@@ -18,7 +18,9 @@ My Orders
 
         <th>Date</th>
 
-        <th>Status</th>
+        <th>Order Status</th>
+
+        <th>Payment</th>
 
         <th>Total</th>
 
@@ -45,6 +47,12 @@ My Orders
         <td>
 
             {{ order.status }}
+
+        </td>
+
+        <td>
+
+            {{ order.payment.payment_status }}
 
         </td>
 

@@ -24,6 +24,112 @@
 
         <h2>₹ {{ product.price }}</h2>
 
+        <hr>
+
+        <h3>Product Rating</h3>
+
+        <p>
+
+        Average Rating :
+
+        {% if average_rating %}
+
+        {{ average_rating|floatformat:1 }}/5
+
+        {% else %}
+
+        No ratings yet.
+
+        {% endif %}
+
+        </p>
+
+        <p>
+
+        Total Reviews :
+
+        {{ total_reviews }}
+
+        </p>
+
+        {% if user.is_authenticated %}
+
+            {% if user_review %}
+
+                <a href="{% url 'edit_review' user_review.id %}">
+
+                    Edit Review
+
+                </a>
+
+                |
+
+                <a href="{% url 'delete_review' user_review.id %}">
+
+                    Delete Review
+
+                </a>
+
+            {% else %}
+
+                <a href="{% url 'add_review' product.slug %}">
+
+                    Write a Review
+
+                </a>
+
+            {% endif %}
+
+        {% endif %}
+
+        <hr>
+
+        <h2>Customer Reviews</h2>
+
+        {% for review in reviews %}
+
+            <div>
+
+                <strong>
+
+                    {{ review.user.username }}
+
+                </strong>
+
+                <br>
+
+                Rating :
+
+                {{ review.rating }}/5
+
+                <br><br>
+
+                {{ review.review }}
+
+                <br><br>
+
+                <small>
+
+                    {{ review.created_at|date:"d M Y" }}
+
+                </small>
+
+            </div>
+
+            <hr>
+
+        {% empty %}
+
+            <p>
+
+                No reviews yet.
+
+            </p>
+
+        {% endfor %}
+
+        <hr>
+
         {% if product.stock > 0 %}
 
         <p>
@@ -39,6 +145,18 @@
         <a href="{% url 'add_to_cart' product.id %}">
             Add to Cart
         </a>
+
+        {% if user.is_authenticated %}
+
+        <br><br>
+
+        <a href="{% url 'add_to_wishlist' product.slug %}">
+
+            Add to Wishlist
+
+        </a>
+
+        {% endif %}
 
         {% else %}
 

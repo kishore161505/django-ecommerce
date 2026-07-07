@@ -22,6 +22,8 @@ My Addresses
 
 <p>
 
+<br>
+
 <strong>{{ address.full_name }}</strong>
 
 </p>
@@ -39,12 +41,17 @@ My Addresses
 <p>{{ address.postal_code }}</p>
 
 <p>{{ address.phone_number }}</p>
+<br>
 
 {% if address.is_default %}
 
 <p><strong>Default Address</strong></p>
 
+
+
 {% endif %}
+
+<br>
 
 <a href="{% url 'edit_address' address.id %}">
 

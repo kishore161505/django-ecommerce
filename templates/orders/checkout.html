@@ -12,13 +12,15 @@ Checkout
 
 <h2>Select Shipping Address</h2>
 
+<br>
+
 <form method="POST">
 
     {% csrf_token %}
 
     {% for address in addresses %}
 
-        <div>
+        <div class="address-card">
 
             <input
                 type="radio"
@@ -27,27 +29,39 @@ Checkout
                 required
             >
 
-            <strong>{{ address.full_name }}</strong>
+            <div>
 
-            <br>
+                <strong>{{ address.full_name }}</strong>
 
-            {{ address.address_line }}
+                <p>
 
-            <br>
+                    {{ address.house_number }}
 
-            {{ address.city }}
+                    {{ address.street }}
 
-            {{ address.state }}
+                </p>
 
-            <br>
+                <p>
 
-            {{ address.postal_code }}
+                    {{ address.city }},
 
-            <br>
+                    {{ address.state }}
 
-            {{ address.country }}
+                </p>
 
-            <br><br>
+                <p>
+
+                    {{ address.postal_code }}
+
+                </p>
+
+                <p>
+
+                    {{ address.country }}
+
+                </p>
+
+            </div>
 
         </div>
 
@@ -62,7 +76,9 @@ Checkout
 
     <h2>Select Payment Method</h2>
 
-    <label>
+    <br>
+
+    <div class="payment-option">
 
         <input
             type="radio"
@@ -71,13 +87,15 @@ Checkout
             required
         >
 
-        Cash On Delivery
+        <label>
 
-    </label>
+            Cash On Delivery
 
-    <br><br>
+        </label>
 
-    <label>
+    </div>
+
+    <div class="payment-option">
 
         <input
             type="radio"
@@ -85,9 +103,13 @@ Checkout
             value="ONLINE"
         >
 
-        Online Payment
+        <label>
 
-    </label>
+            Online Payment
+
+        </label>
+
+    </div>
 
     <hr>
 

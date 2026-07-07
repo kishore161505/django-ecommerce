@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-
+from django.forms import SelectDateWidget
 from .models import Profile, Address
 
 
@@ -13,22 +13,46 @@ class UserRegisterForm(UserCreationForm):
 
     email = forms.EmailField()
 
+    phone_number = forms.CharField(
+        max_length=15,
+        required=False,
+    )
+
+    date_of_birth = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={"type": "date"})
+    )
+
+    profile_image = forms.ImageField(
+        required=False,
+    )
+
     class Meta:
+
         model = User
 
         fields = (
+
             "first_name",
+
             "last_name",
+
             "username",
+
             "email",
+
             "password1",
+
             "password2",
+
         )
 
     def clean_email(self):
+
         email = self.cleaned_data["email"]
 
         if User.objects.filter(email=email).exists():
+
             raise forms.ValidationError(
                 "Email already exists."
             )
@@ -71,6 +95,11 @@ class ProfileUpdateForm(forms.ModelForm):
             "profile_image",
             "date_of_birth",
         )
+
+        widgets = {
+            "date_of_birth": SelectDateWidget(
+            )
+        }
 
 
 class AddressForm(forms.ModelForm):

@@ -48,6 +48,11 @@ urlpatterns = [
         include("dashboard.urls"),
 
     ),
+
+    path(
+        'api/v1/',
+        include("api.urls"),
+    )
 ]
 
 if settings.DEBUG:

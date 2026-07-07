@@ -1,5 +1,7 @@
 # Virtual Environment
 venv/
+db.sqlite3
+staticfiles/
 
 # Python
 __pycache__/

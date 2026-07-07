@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import get_object_or_404
+from django.db.models.deletion import ProtectedError
+from django.contrib import messages
 from .forms import AddressForm
 from .models import Address
 
@@ -21,10 +23,25 @@ def register(request):
 
     if request.method == "POST":
 
-        form = UserRegisterForm(request.POST)
+        form = UserRegisterForm(request.POST, request.FILES,)
 
         if form.is_valid():
             user = form.save()
+
+            user.first_name = form.cleaned_data["first_name"]
+            user.last_name = form.cleaned_data["last_name"]
+            user.email = form.cleaned_data["email"]
+            user.save()
+
+            profile = user.profile
+
+            profile.phone_number = form.cleaned_data["phone_number"]
+
+            profile.date_of_birth = form.cleaned_data["date_of_birth"]
+
+            profile.profile_image = form.cleaned_data["profile_image"]
+
+            profile.save()
 
             login(request, user)
 
@@ -210,19 +227,19 @@ def add_address(request):
 
             return redirect("address_list")
         
-        else:
+    else:
 
-            form = AddressForm()
+        form = AddressForm()
 
-        context = {
-            "form": form
-        }
+    context = {
+        "form": form
+    }
 
-        return render(
-            request,
-            "accounts/address_form.html",
-            context,
-        )
+    return render(
+        request,
+        "accounts/address_form.html",
+        context,
+    )
     
 @login_required
 def edit_address(request, pk):
@@ -264,7 +281,6 @@ def edit_address(request, pk):
 
 @login_required
 def delete_address(request, pk):
-
     address = get_object_or_404(
         Address,
         pk=pk,
@@ -272,17 +288,19 @@ def delete_address(request, pk):
     )
 
     if request.method == "POST":
-
-        address.delete()
+        try:
+            address.delete()
+            messages.success(request, "Address deleted successfully.")
+        except ProtectedError:
+            messages.error(
+                request,
+                "This address cannot be deleted because it has been used in one or more orders."
+            )
 
         return redirect("address_list")
-
-    context = {
-        "address": address
-    }
 
     return render(
         request,
         "accounts/address_delete.html",
-        context,
+        {"address": address},
     )

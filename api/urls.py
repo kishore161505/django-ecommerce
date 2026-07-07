@@ -18,10 +18,10 @@ urlpatterns = [
     path('', include(router.urls)),
     
     # Auth
-    path('auth/register/', RegisterView.as_view(), name='register'),
-    path('auth/login/', TokenObtainPairView.as_view(), name='login'),
-    path('auth/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('auth/profile/', ProfileView.as_view(), name='profile'),
+    path('auth/register/', RegisterView.as_view(), name='api_register'), # Changed name
+    path('auth/login/', TokenObtainPairView.as_view(), name='api_login'),       # Changed name
+    path('auth/refresh/', TokenRefreshView.as_view(), name='api_token_refresh'),
+    path('auth/profile/', ProfileView.as_view(), name='api_profile'),    # Changed name
     
     # Cart
     path('cart/', CartAPIView.as_view(), name='cart_api'),
